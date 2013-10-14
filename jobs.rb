@@ -9,6 +9,7 @@ conn = Bunny.new ENV['AMQP_URL']
 conn.start
 
 ch = conn.create_channel
+ch.prefetch 1
 q  = ch.queue("documents.ready", :no_declare => true)
 
 q.subscribe(:block => true, :ack => true) do |delivery_info, metadata, payload|
