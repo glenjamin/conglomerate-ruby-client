@@ -26,7 +26,6 @@ question2 = [
 
 ch = conn.create_channel
 q  = ch.queue("", :auto_delete => true, :exclusive => true)
-q.bind(x, :routing_key => q.name);
 
 puts "Your question: #{question}"
 puts "My question: #{question2}"
