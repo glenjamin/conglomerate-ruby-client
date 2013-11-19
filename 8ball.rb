@@ -1,14 +1,9 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "rubygems"
-require "json"
-require "bunny"
+require "./connect.rb"
 
-conn = Bunny.new ENV['AMQP_URL']
-conn.start
-
-ch = conn.create_channel
+ch = @conn.create_channel
 x  = ch.topic("8ball", :no_declare => true)
 
 question = if ARGV.length > 0

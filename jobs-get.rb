@@ -1,16 +1,13 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "rubygems"
+require "./connect.rb"
 require "json"
-require "bunny"
 require "kramdown"
 require "rest_client"
 
-conn = Bunny.new ENV['AMQP_URL']
-conn.start
+ch = @conn.create_channel
 
-ch = conn.create_channel
 q  = ch.queue("documents.ready", :no_declare => true)
 
 author = `whoami`

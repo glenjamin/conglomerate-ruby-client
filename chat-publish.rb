@@ -1,14 +1,10 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "rubygems"
+require "./connect.rb"
 require "json"
-require "bunny"
 
-conn = Bunny.new ENV['AMQP_URL']
-conn.start
-
-ch = conn.create_channel
+ch = @conn.create_channel
 x  = ch.topic("chat", :no_declare => true)
 
 room = ARGV.shift or raise "missing room"

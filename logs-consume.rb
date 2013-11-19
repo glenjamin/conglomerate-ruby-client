@@ -1,15 +1,13 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "rubygems"
-require "bunny"
+require "./connect.rb"
 
-conn = Bunny.new ENV['AMQP_URL']
-conn.start
+ch = @conn.create_channel
 
-ch = conn.create_channel
 ex = ch.topic("logs", :no_declare => true)
 q  = ch.queue("", :auto_delete => true, :exclusive => true)
+
 key = ARGV[0] || "#"
 q.bind(ex, :routing_key => key)
 
